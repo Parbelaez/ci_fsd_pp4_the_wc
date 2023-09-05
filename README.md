@@ -70,6 +70,21 @@ import dj_database_url
 if os.path.isfile("env.py"):
     import env
 ```
+Change the database settings to the following:
+
+```Python
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
+```
+
+And the secret key that comes by default should be changed to:
+
+```Python
+SECRET_KEY = os.environ.get("SECRET_KEY")
+```
+
+
 An app's name should follow [Pep 8 Guidelines](https://www.python.org/dev/peps/pep-0008/#package-and-module-names), namely it should be short, all-lowercase and not include numbers, dashes, periods, spaces, or special characters. It also, in general, should be the plural of an app's main model, so our posts app would have a main model called Post.
 
 A Django application is created by running the following command:
