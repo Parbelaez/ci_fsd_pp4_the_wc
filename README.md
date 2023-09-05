@@ -84,6 +84,13 @@ And the secret key that comes by default should be changed to:
 SECRET_KEY = os.environ.get("SECRET_KEY")
 ```
 
+To be able to see the webpage, the ALLOWED_HOSTS list should be changed to:
+
+```Python
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','thewcwebpage-83a6428384c3.herokuapp.com']
+```
+
+The ones declared as local host correspond to the ones used during the development process, while the one declared as thewcwebpage-83a6428384c3.herokuapp.com is the one used by Heroku.
 
 An app's name should follow [Pep 8 Guidelines](https://www.python.org/dev/peps/pep-0008/#package-and-module-names), namely it should be short, all-lowercase and not include numbers, dashes, periods, spaces, or special characters. It also, in general, should be the plural of an app's main model, so our posts app would have a main model called Post.
 
@@ -159,6 +166,19 @@ python3 manage.py createsuperuser
 
 You will be asked for your username, email and password. This will be the user that will be able to access the admin panel.
 
+### Testing the app
+
+To test the app, it is needed to run the following command:
+
+```shell
+python3 manage.py runserver
+```
+
+Open the local address in your web browser, and you should be able to see the webpage.
+
+[App test](./README%20images/app_test.png)
+
+
 ### Initial deployment to Heroku
 
 As the project will be deployed in Heroku, after installing the dependencies, it is needed to create a requirements.txt file by running the following command:
@@ -177,10 +197,16 @@ echo web: gunicorn django_crm.wsgi:application > Procfile
 
 ### Add the app file to your urls definition
 
-To be able to access the app, it is needed to add the app file to the urls definition in the urls.py file. This is done by adding the following line to the urlpatterns list:
+To be able to access the app, it is needed to add the app file to the urls definition in the urls.py file. For this, the project urls.py file is modified by adding the following line (and importing include):
 
 ```Python
-path('', include('app_crm.urls')),
+from django.contrib import admin
+from django.urls import path, include  # include added for thewcwebpage app
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('thewcwebpage.urls')),
+]
 ```
 
 ### Create the app urls
