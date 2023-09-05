@@ -1,6 +1,24 @@
-# Django CRM
+# The WC (Writers Club) Webpage
 
- A basic CRM developed in Django... aimed as a template for future projects.
+## The idea behind the webpage
+
+ The Writers Club, or WC, is where writers can share their work and get feedback from other writers. It is a place where writers can find inspiration, and where they can find other writers to collaborate with.
+
+ Why WC... this is simple, an idea is something that intoxicates you until to push it out of your body, OK, brain, so the WC is the place where you can do that. But, ideas are not always complete. Sometimes, we, writers, start evrything with a punch-line, or and ending, or even a middle. So, the WC is the place where you can find the missing pieces of your ideas, and where you can help others to find the missing pieces of their ideas.
+
+ But, the WC is not only for writers, it is also for readers. It is a place where readers can find new stories to read, and where they can find new writers to follow.
+
+ And, even better, it is also for photographers.
+
+ Do you think that your photo deserves to be expanded with a written story? Do you think that your photo can inspire a writer to write a story? Then, the WC is the place for you. Upload your photo, with or without an initial story, and let the writers do the rest.
+
+## How does it work
+
+If you are a reader, just navigate through it, and enjoy the stories and photos. You can even follow the development of them, as other creators write new chapters, or add new photos.
+
+If you are a writer, you can create a new story, or you can continue an existing one. You can also add a new chapter to an existing story. And, if you are a photographer, you can upload your photos, and let the writers do the rest.
+
+## The structure of the webpage
 
 ## Project setup
 
@@ -150,11 +168,11 @@ We are using Elephant SQL as our DB provider, and we are using the free tier, wh
 
 And the tables can be accessed here:
 
-[Elephant SQL](./README%20images/elephantSQL_browser.png)
+[Elephant SQL](./README_images/elephantSQL_browser.png)
 
 and can be queried here:
 
-[Elephant SQL](./README%20images/elephantSQL_query.png)
+[Elephant SQL](./README_images/elephantSQL_query.png)
 
 ### Create a superuser
 
