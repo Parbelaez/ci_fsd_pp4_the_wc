@@ -19,5 +19,5 @@ from django.urls import path, include  # include added for thewcwebpage app
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('', include('thewcwebpage.urls')),
+    path('', include('thewcwebpage.urls')),
 ]

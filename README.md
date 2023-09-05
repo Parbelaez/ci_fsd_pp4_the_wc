@@ -168,11 +168,11 @@ We are using Elephant SQL as our DB provider, and we are using the free tier, wh
 
 And the tables can be accessed here:
 
-[Elephant SQL](./README_images/elephantSQL_browser.png)
+[Elephant SQL Browser](./README_images/elephantSQL_browser.png)
 
 and can be queried here:
 
-[Elephant SQL](./README_images/elephantSQL_query.png)
+[Elephant SQL Queries](./README_images/elephantSQL_query.png)
 
 ### Create a superuser
 
@@ -194,7 +194,7 @@ python3 manage.py runserver
 
 Open the local address in your web browser, and you should be able to see the webpage.
 
-[App test](./README%20images/app_test.png)
+[App test](./README_images/app_test.png)
 
 
 ### Initial deployment to Heroku
@@ -240,19 +240,15 @@ urlpatterns = [
 ]
 ```
 
-### Create the models
-
-The models are created in the models.py file. In this case, the models are:
-
-
-
 ## The design of the webpage and app
 
 For most of the styling, Bootstrap was used, and some customization was done in the style.css file.
 
+To create the pages (html files), we need first to create a templates folder in the root of the app folder. Inside of this folder we will create all the html files.
+
 ### The base template
 
-The base template is the template that is used by all the other templates. It contains the header, the footer and the navbar. It also contains the links to the Bootstrap and jQuery libraries.
+The base template is the template that is used by all the other html pages. It contains the header, the footer and the navbar. It also contains the links to the Bootstrap and jQuery libraries.
 
 But, as it can be seen, the header is a nav bar, therefore, it was created sepparately in the navbar.html file, and then it was included in the base.html file by adding the following line:
 
