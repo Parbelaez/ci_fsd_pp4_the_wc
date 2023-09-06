@@ -240,6 +240,55 @@ urlpatterns = [
 ]
 ```
 
+### Create the models (DB structure)
+
+The DB should have tables for the following models:
+
+* USER: where all data of each registered user is stored.
+
+* WRITING: where all data of each story is stored.
+
+| key          | Name          | Type             |
+|--------------|---------------|------------------|
+|              | Title         | Char[200]        |
+| FK           | Author        | UserModel        |
+|              | Main_Genre    | Char[20]         |
+|              | Sub_Genre     | Char[20]         |
+|              | Created On    | DateTime         |
+|              | Updated On    | DateTime         |
+|              | Content       | TextField        |
+|              | Image         | Cloudinary Image |
+|              | Abstract      | TextField        |
+| Many to Many | Likes         | User Model       |
+|              | Slug (unique) | SlugField        |
+|              | Status        | Integer          |
+
+
+The models are created in the models.py file. In this case, the models are:
+
+* Record: this is users table, which in Django is treated as a Python Class. So, basically, after creating a class, Django will create an object during the makemigrations process. Which is then used to create the table in the database during the migrate process.
+
+But, the table is not yet accessible in the admin panel. To do so, it is needed to create a superuser by running the following command (already done):
+
+```shell
+python3 manage.py createsuperuser
+```
+
+Then, it is needed to register the model in the admin.py file by adding the following lines:
+
+```Python
+from .models import Record
+```
+
+Django will automatically pluralize the name of the model, so it will be Records in the admin panel.
+
+[Django models](./README_images/models.png)
+
+And, will create the table in the database.
+
+[Postgres DB](./README_images/DB.png)
+
+
 ## The design of the webpage and app
 
 For most of the styling, Bootstrap was used, and some customization was done in the style.css file.
@@ -338,33 +387,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 NOTE: As of django-crispy-forms 2.0 the template packs are now in separate packages.
 
 You will need to pip install crispy-bootstrap4 and add crispy_bootstrap4 to your list of INSTALLED_APPS.
-
-
-### Create the models (DB structure)
-
-The models are created in the models.py file. In this case, the models are:
-
-* Record: this is users table, which in Django is treated as a Python Class. So, basically, after creating a class, Django will create an object during the makemigrations process. Which is then used to create the table in the database during the migrate process.
-
-But, the table is not yet accessible in the admin panel. To do so, it is needed to create a superuser by running the following command (already done):
-
-```shell
-python3 manage.py createsuperuser
-```
-
-Then, it is needed to register the model in the admin.py file by adding the following lines:
-
-```Python
-from .models import Record
-```
-
-Django will automatically pluralize the name of the model, so it will be Records in the admin panel.
-
-[Django models](./README%20images/models.png)
-
-And, will create the table in the database.
-
-[Postgres DB](./README%20images/DB.png)
 
 
 ### View the records in the website
