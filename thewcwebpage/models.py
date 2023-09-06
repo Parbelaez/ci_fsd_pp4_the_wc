@@ -25,6 +25,7 @@ class Writing(models.Model):
     abstract = models.TextField()
     status = models.IntegerField(choices=STATUS, default=0)
     likes = models.ManyToManyField(User, related_name='writing_likes', blank=True)
+    approved_writing = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-created_on']

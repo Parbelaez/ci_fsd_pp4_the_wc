@@ -166,11 +166,11 @@ We are using Elephant SQL as our DB provider, and we are using the free tier, wh
 
 And the tables can be accessed here:
 
-![Elephant SQL Browser](./README_images/elephantSQL_browser.png)
+![Elephant SQL Browser](./readmeimages/elephantSQL-browser.png)
 
 and can be queried here:
 
-![Elephant SQL Queries](./README_images/elephantSQL_query.png)
+![Elephant SQL Queries](./readmeimages/elephantSQL_query.png)
 
 ### Create a superuser
 
@@ -192,7 +192,7 @@ python3 manage.py runserver
 
 Open the local address in your web browser, and you should be able to see the webpage.
 
-![App test](./README_images/app_test.png)
+![App test](./readmeimages/app_test.png)
 
 
 ### Initial deployment to Heroku
@@ -302,15 +302,15 @@ admin.site.register(Comment)
 
 Django will automatically pluralize the name of the model, so it will be Writings and Comments in the admin panel.
 
-![Django models](./README_images/writings_comments_django.png)
+![Django models](./readmeimages/writings_comments_django.png)
 
 And, will create the tables in the database.
 
-![Postgres DB](./README_images/writings_comments_db.png)
+![Postgres DB](./readmeimages/writings_comments_db.png)
 
 And, now, you will be able to create new records in the admin panel.
 
-![Admin panel](./README_images/writings_create.png)
+![Admin panel](./readmeimages/writings_create.png)
 
 Then, it is needed to register the model in the admin.py file by adding the following lines:
 
@@ -320,11 +320,78 @@ from .models import Record
 
 Django will automatically pluralize the name of the model, so it will be Records in the admin panel.
 
-![Django models](./README_images/models.png)
+![Django models](./readmeimages/models.png)
 
 And, will create the table in the database.
 
-![Postgres DB](./README_images/DB.png)
+![Postgres DB](./readmeimages/DB.png)
+
+### Create new writings for the normal user
+
+Until now, only users with access to the admin panel can create the new writings, but this is not what we want. We want that any user can create a new writing, and that the writing is associated to the user that created it.
+
+For this, we need to install Summernotes, which is a package that allows the developer to add a rich text editor to the application. This is done by running the following command:
+
+```shell
+pip3 install django-summernote
+```
+
+Then, it is needed to add the following lines to the INSTALLED_APPS list in the settings.py file:
+
+```Python
+'django_summernote',
+```
+
+Then, it is needed to add the following lines to the urls.py file:
+
+```Python
+path('summernote/', include('django_summernote.urls')),
+```
+
+Then, it is needed to add the following lines to the admin.py file, to tell the panel which fields to use the rich text editor:
+
+```Python
+from django_summernote.admin import SummernoteModelAdmin
+
+@admin.register(Writing)
+class WritingAdmin(SummernoteModelAdmin):
+    summernote_fields = ('content',)
+    list_display = ('title', 'slug', 'author', 'created_on', 'updated_on', 'main_genre', 'sub_genre', 'status', 'total_likes')
+
+@admin.register(Comment)
+class CommentAdmin(SummernoteModelAdmin):
+    summernote_fields = ('content',)
+    list_display = ('writing', 'author', 'created_on', 'updated_on', 'status', 'writing_type', 'total_likes')
+```
+
+*NOTE:* we are using python decorators now to register the models in the admin panel. This is the same as doing (that we did before, so it should be deleted):
+
+```Python
+admin.site.register(Writing, WritingAdmin)
+```
+
+Now, the writings and comments have a proper text editor:
+
+![Admin panel](./readmeimages/writings_summeernote.png)
+
+To see the full definition of the models, please refer to the code (admin.py and models.py files).
+
+### Slug summernote_fields
+
+The slug is a field that is used to create a unique URL for each writing. It is created automatically by Django, but it is not very user friendly. Therefore, it is needed to create a slug field in the model, and to create a slug for each writing.
+
+This is done by adding the following lines to the admind.py file for each class that would need a slug:
+
+```Python
+prepopulated_fields = {'slug': ('title',)}
+```
+
+In this case, the slug is created using the title of the writing.
+
+![Writings slug field](./readmeimages/slug_field.png)
+
+
+
 
 
 ## The design of the webpage and app
