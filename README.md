@@ -18,8 +18,6 @@ If you are a reader, just navigate through it, and enjoy the stories and photos.
 
 If you are a writer, you can create a new story, or you can continue an existing one. You can also add a new chapter to an existing story. And, if you are a photographer, you can upload your photos, and let the writers do the rest.
 
-## The structure of the webpage
-
 ## Project setup
 
 ### Install dependencies
@@ -168,11 +166,11 @@ We are using Elephant SQL as our DB provider, and we are using the free tier, wh
 
 And the tables can be accessed here:
 
-[Elephant SQL Browser](./README_images/elephantSQL_browser.png)
+![Elephant SQL Browser](./README_images/elephantSQL_browser.png)
 
 and can be queried here:
 
-[Elephant SQL Queries](./README_images/elephantSQL_query.png)
+![Elephant SQL Queries](./README_images/elephantSQL_query.png)
 
 ### Create a superuser
 
@@ -194,7 +192,7 @@ python3 manage.py runserver
 
 Open the local address in your web browser, and you should be able to see the webpage.
 
-[App test](./README_images/app_test.png)
+![App test](./README_images/app_test.png)
 
 
 ### Initial deployment to Heroku
@@ -275,6 +273,7 @@ The following GENRES are available:
 - Poetry
 - Other
 
+<br>
 
 * **COMMENT:** Comments in the WC are treated either as normal comments or as further writing of an original story. Therefore, the comment model should have a field to indicate if it is a normal comment or a proposal of story continuity.
 
@@ -292,13 +291,26 @@ The following GENRES are available:
 
 The models are created in the models.py file. In this case, the models are:
 
-* Record: this is users table, which in Django is treated as a Python Class. So, basically, after creating a class, Django will create an object during the makemigrations process. Which is then used to create the table in the database during the migrate process.
+But, the tables are not yet accessible in the admin panel. To do so, and as we have already created a superuser in the previous steps, it is needed to register the models in the admin.py file by adding the following lines:
 
-But, the table is not yet accessible in the admin panel. To do so, it is needed to create a superuser by running the following command (already done):
+```Python
+from .models import Writing, Comment
 
-```shell
-python3 manage.py createsuperuser
+admin.site.register(Writing)
+admin.site.register(Comment)
 ```
+
+Django will automatically pluralize the name of the model, so it will be Writings and Comments in the admin panel.
+
+![Django models](./README_images/writings_comments_django.png)
+
+And, will create the tables in the database.
+
+![Postgres DB](./README_images/writings_comments_db.png)
+
+And, now, you will be able to create new records in the admin panel.
+
+![Admin panel](./README_images/writings_create.png)
 
 Then, it is needed to register the model in the admin.py file by adding the following lines:
 
@@ -308,11 +320,11 @@ from .models import Record
 
 Django will automatically pluralize the name of the model, so it will be Records in the admin panel.
 
-[Django models](./README_images/models.png)
+![Django models](./README_images/models.png)
 
 And, will create the table in the database.
 
-[Postgres DB](./README_images/DB.png)
+![Postgres DB](./README_images/DB.png)
 
 
 ## The design of the webpage and app
