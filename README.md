@@ -244,9 +244,9 @@ urlpatterns = [
 
 The DB should have tables for the following models:
 
-* USER: where all data of each registered user is stored.
+* **USER:** where all data of each registered user is stored.
 
-* WRITING: where all data of each story is stored.
+* **WRITING:** where all data of each story is stored.
 
 | key          | Name          | Type             |
 |--------------|---------------|------------------|
@@ -263,6 +263,32 @@ The DB should have tables for the following models:
 |              | Slug (unique) | SlugField        |
 |              | Status        | Integer          |
 
+The following GENRES are available:
+
+- Action and Adventure
+- Comedy
+- Crime and Mistery
+- Fantasy
+- Horror
+- SciFi
+- Romance
+- Poetry
+- Other
+
+
+* **COMMENT:** Comments in the WC are treated either as normal comments or as further writing of an original story. Therefore, the comment model should have a field to indicate if it is a normal comment or a proposal of story continuity.
+
+| Key | Name             | Type         |
+|-----|------------------|--------------|
+| FK  | Writing          | WritingModel |
+| FK  | Author           | UserModel    |
+|     | Created On       | DateTime     |
+|     | Updated On       | DateTime     |
+|     | Content          | TextField    |
+|     | Status           | Integer      |
+|     | Writing Type     | Integer      |
+|     | Likes            | UserModel    |
+|     | Approved Comment | Boolean      |
 
 The models are created in the models.py file. In this case, the models are:
 
