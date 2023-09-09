@@ -31,4 +31,3 @@ class CommentAdmin(SummernoteModelAdmin):
     # This method is used to approve comments from the admin panel.
     def approve_comments(self, request, queryset):
         queryset.update(approved_comment=True)
-

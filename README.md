@@ -166,7 +166,7 @@ We are using Elephant SQL as our DB provider, and we are using the free tier, wh
 
 And the tables can be accessed here:
 
-![Elephant SQL Browser](./readmeimages/elephantSQL-browser.png)
+![Elephant SQL Browser](./readmeimages/elephantsqlbrowser.png)
 
 and can be queried here:
 
@@ -399,6 +399,30 @@ In this case, the slug is created using the title of the writing.
 For most of the styling, Bootstrap was used, and some customization was done in the style.css file.
 
 To create the pages (html files), we need first to create a templates folder in the root of the app folder. Inside of this folder we will create all the html files.
+
+We have already created the models but, as Django is a Model-View-Template framework, that means, that everytime that we would like to create a page or module, we would need to cover three steps:
+
+1. Create the view
+2. Create the template to render the view
+3. Connect up our URLs in the urls.py file
+
+
+### The views
+
+The views are created in the views.py file, and they are the ones that will render the html files.
+
+The views are created by adding the following lines to the views.py file:
+
+```Python
+from django.shortcuts import render
+
+def home(request):
+    """ A view to return the reqeusted page """
+
+    return render(request, 'requested_page.html')
+```
+
+Please, refer to the code for the full definition of the views.
 
 ### The base template
 
