@@ -22,7 +22,7 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <a href="#" class="post-link">
+                                    <a href="{% url 'writing_detail' writing.slug %}" class="post-link">
                                         <h2 class="card-title">
                                             {{ writing.title }}
                                         </h2>
@@ -32,9 +32,9 @@
                                     </a>
                                     <hr>
                                     <p class="card-text text-muted h6">
-                                        {{ writing.date|date:"F d, Y" }}
+                                        {{ writing.created_on }}
                                         <i class="far fa-heart"></i>
-                                        {{ writing.likes }}
+                                        {{ writing.total_likes }}
                                     </p>
                                 </div>
                             </div>
