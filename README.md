@@ -308,17 +308,17 @@ And, will create the tables in the database.
 
 ![Postgres DB](./readmeimages/writings_comments_db.png)
 
-And, now, you will be able to create new records in the admin panel.
+And, now, you will be able to create new writings in the admin panel.
 
 ![Admin panel](./readmeimages/writings_create.png)
 
 Then, it is needed to register the model in the admin.py file by adding the following lines:
 
 ```Python
-from .models import Record
+from .models import writing
 ```
 
-Django will automatically pluralize the name of the model, so it will be Records in the admin panel.
+Django will automatically pluralize the name of the model, so it will be writings in the admin panel.
 
 ![Django models](./readmeimages/models.png)
 
@@ -518,37 +518,80 @@ NOTE: As of django-crispy-forms 2.0 the template packs are now in separate packa
 You will need to pip install crispy-bootstrap4 and add crispy_bootstrap4 to your list of INSTALLED_APPS.
 
 
-### View the records in the website
+### View the writings in the website
 
-To be able to view the records in the website, it is needed to create a view in the views.py file. This is done by adding the following lines:
+To be able to view the writings in the website, it is needed to create a view in the views.py file. This is done by adding the following lines:
 
 ```Python
-from .models import Record
+from .models import writing
 
-def records(request):
-    """ A view to return the records page """
+def writings(request):
+    """ A view to return the writings page """
 
-    records = Record.objects.all()
+    writings = writing.objects.all()
 
     context = {
-        'records': records,
+        'writings': writings,
     }
 
-    return render(request, 'records/records.html', context)
+    return render(request, 'writings/writings.html', context)
 ```
 
-*NOTE:* in the views file in this project, the records are rendered in the home page, but this is not the best practice. The best practice is to create a new page for the records, and render them there. So, differences in the code may be found.
+*NOTE:* in the views file in this project, the writings are rendered in the home page, but this is not the best practice. The best practice is to create a new page for the writings, and render them there. So, differences in the code may be found.
 
-Then, it is needed to create the records.html file in the templates/records folder. This is done by running the following command:
+Then, it is needed to create the writings.html file in the templates/writings folder. This is done by running the following command:
 
 ```shell
-touch templates/records/records.html
+touch templates/writings/writings.html
 ```
 
 And, it is needed to add the following lines to the urls.py file:
 
 ```Python
-path('records/', views.records, name='records'),
+path('writings/', views.writings, name='writings'),
+```
+
+## Allauth module
+
+Allauth is a package that allows the developer to add a login and registration module to the application. It is a very powerful package, and it allows the developer to customize the login and registration forms.
+
+To install it, run the following command:
+
+```shell
+pip3 install django-allauth
+```
+
+Then, add the following line to the INSTALLED_APPS list in the settings.py file:
+
+```Python
+'allauth',
+'allauth.account',
+'allauth.socialaccount',
+```
+Allauth comes with a set of templates that can be used to render the login and registration forms. To use them, it is needed to create a templates folder in the root of the app folder, and then copy the templates from the allauth package to the templates folder. This is done by running the following command:
+
+```shell
+cp -r ./.venv/lib/python3.11/site-packages/allauth/templates/* ./templates
+```
+
+Then, it is needed to add the following lines to the settings, so Django knows where to find the templates:
+
+```Python
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],  # added for allauth
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',  # added for allauth
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 ```
 
 ## Deployment -Heroku-

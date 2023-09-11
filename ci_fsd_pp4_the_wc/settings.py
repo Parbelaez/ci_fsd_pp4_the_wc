@@ -21,6 +21,9 @@ if os.path.isfile("env.py"):
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+# To clearly indicate that the templates folder is inside the project folder
+# this way, allauth will be able to find the templates folder as well.
+TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
 
 # Quick-start development settings - unsuitable for production
@@ -43,11 +46,24 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'allauth',  # allauth added for thewcwebpage app
+    'allauth.account',  # allauth added for thewcwebpage app
+    'allauth.socialaccount',  # allauth added for thewcwebpage app
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'django_summernote',
     'thewcwebpage',
 ]
+
+# We need to tell Django the site number that we will apply this to.
+# This is useful when we have more than one site running on the same
+# Django instance.
+SITE_ID = 1
+
+# This is the URL that the user will be redirected to after logging in.
+LOGIN_REDIRECT_URL = '/'
+# This is the URL that the user will be redirected to after logging out.
+LOGOUT_REDIRECT_URL = '/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -65,7 +81,7 @@ ROOT_URLCONF = 'ci_fsd_pp4_the_wc.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATES_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,3 +153,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 django_heroku.settings(locals())
+
+# This will avoid the need for an SMTP server as e-mails will be printed
+# to the console. (This is useful for testing purposes.)
+# https://stackoverflow.com/questions/21563227/django-allauth-example-errno-61-connection-refused
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
