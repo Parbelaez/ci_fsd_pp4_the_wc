@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     # https://django-crispy-forms.readthedocs.io/en/latest/install.html
     # Remember to add the template pack to the settings.py file.
     # and pip3 install crispy-bootstrap4
-    # 'crispy_bootstrap4',
+    'crispy_bootstrap4',
     'thewcwebpage',
 ]
 
