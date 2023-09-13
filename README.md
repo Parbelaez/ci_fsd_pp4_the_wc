@@ -18,6 +18,29 @@ If you are a reader, just navigate through it, and enjoy the stories and photos.
 
 If you are a writer, you can create a new story, or you can continue an existing one. You can also add a new chapter to an existing story. And, if you are a photographer, you can upload your photos, and let the writers do the rest.
 
+## How to collaborate and rules
+
+1. An author starts a story or postes and image as a kick-off for a story.
+    * The author will give the Story a Title wich can be changed at any point, even at the end of the project.
+    * The Author must give a Main Genre to set the mood that she/he is looking for.
+    * The Author can set a Sub Genre to give freedom of writing to her/his collaborators.
+    * The Author must give an Abstract of what she/he thinks would lead the story. It should be comprehensive enough to set the tone and the mood of the story.
+    * The Author can add an image to the story. This image will be used as the cover of the story. (Optional)
+    * The Author must give a deadline for entries.
+
+2. Any user with a registered account and access to the story (future feature) can add a comment to the story.
+    * The comment can be a normal comment, or a proposal of story continuity (chosen from the *"type"* field).
+
+3. After the deadline is due, The Author will choose up to 3 writings and publish them indicating her/his preferred one. This Writing will immediately have a 10% weight more than the others.
+
+4. All users can vote by liking the writings (and can vote for the three of them if they want) for their preferred writing. The voting will be open for 1 week.
+
+5. After the voting period is over, the writing with the most votes (including that 10% weight from the Authors chosen one) will be chosen as the next chapter of the story.
+
+6. The process will be repeated until the writer decides to end the story, or until the story is not voted for 3 times in a row.
+
+*NOTE:* on every iteration, the Author will decide if she/he would like to add a new chapter to the story, or if she/he would like to end the story.
+
 ## Project setup
 
 ### Install dependencies

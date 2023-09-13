@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 # With this we are importing the generic class-based views
 from django.views import generic, View
 from .models import Writing, Comment
+from .forms import CommentForm
 
 # From the generic class-based views we are importing the ListView
 # which is used to display a list of objects (DB tables or content)
@@ -39,5 +40,6 @@ class WritingDetailView(generic.View):
             'writing': writing,
             'comments': comments,
             'liked': liked,
+            'comment_form': CommentForm(),
         }
         return render(request, 'writing_detail.html', context)

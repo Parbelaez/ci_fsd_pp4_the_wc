@@ -52,6 +52,12 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'django_summernote',
+    'crispy_forms',
+    # Since version 2, the styling is a separate package.
+    # https://django-crispy-forms.readthedocs.io/en/latest/install.html
+    # Remember to add the template pack to the settings.py file.
+    # and pip3 install crispy-bootstrap4
+    # 'crispy_bootstrap4',
     'thewcwebpage',
 ]
 
@@ -64,6 +70,11 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 # This is the URL that the user will be redirected to after logging out.
 LOGOUT_REDIRECT_URL = '/'
+
+# Crispy Forms does not support Bootstrap 5 yet, so we need to set the
+# template pack to Bootstrap 4.
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -151,6 +162,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 django_heroku.settings(locals())
 
