@@ -46,9 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'allauth',  # allauth added for thewcwebpage app
-    'allauth.account',  # allauth added for thewcwebpage app
-    'allauth.socialaccount',  # allauth added for thewcwebpage app
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'django_summernote',
@@ -59,6 +56,11 @@ INSTALLED_APPS = [
     # and pip3 install crispy-bootstrap4
     'crispy_bootstrap4',
     'thewcwebpage',
+    # The position should be after the app making use of it.
+    # unless, the custom templates will not work.
+    'allauth',  # allauth added for thewcwebpage app
+    'allauth.account',  # allauth added for thewcwebpage app
+    'allauth.socialaccount',  # allauth added for thewcwebpage app
 ]
 
 # We need to tell Django the site number that we will apply this to.
@@ -104,6 +106,8 @@ TEMPLATES = [
         },
     },
 ]
+
+
 
 WSGI_APPLICATION = 'ci_fsd_pp4_the_wc.wsgi.application'
 
