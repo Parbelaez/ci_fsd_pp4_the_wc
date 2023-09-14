@@ -176,3 +176,4 @@ django_heroku.settings(locals())
 # to the console. (This is useful for testing purposes.)
 # https://stackoverflow.com/questions/21563227/django-allauth-example-errno-61-connection-refused
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_VERIFICATION = 'none'

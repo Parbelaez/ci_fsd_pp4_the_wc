@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 # With this we are importing the generic class-based views
 from django.views import generic, View
+from django.http import HttpResponseRedirect
 from .models import Writing, Comment
 from .forms import CommentForm
 
@@ -39,7 +40,58 @@ class WritingDetailView(generic.View):
         context = {
             'writing': writing,
             'comments': comments,
+            'commented': False,
             'liked': liked,
             'comment_form': CommentForm(),
         }
         return render(request, 'writing_detail.html', context)
+
+    def post(self, request, slug, *args, **kwargs):
+        # Variable to get only the published writings
+        queryset = Writing.objects.filter(status=1)
+        # Variable to get the published writing with the slug passed in the URL
+        writing = get_object_or_404(queryset, slug=slug)
+        comments = writing.comments.filter(approved_comment=True).order_by('-created_on')
+        liked = False
+        if writing.likes.filter(id=request.user.id).exists():
+            liked = True
+
+        comment_form = CommentForm(data=request.POST or None)
+
+        if comment_form.is_valid():
+            comment_form.instance.email = request.user.email
+            # In Django, when calling the user object, it is actually the ID on the table
+            # that is being called. So, we need to pass the user object to the author field
+            comment_form.instance.author = request.user
+            comment = comment_form.save(commit=False)
+            comment.writing = writing
+            comment.save()
+        else:
+            comment_form = CommentForm()
+
+        # This context can be created inside the return statement
+        # but it is better to create it outside and then pass it
+        # as an argument, so the code is easier to read.
+        context = {
+            'writing': writing,
+            'comments': comments,
+            'commented': True,
+            'liked': liked,
+            'comment_form': CommentForm(),
+        }
+        return render(request, 'writing_detail.html', context)
+
+class WritingLike(View):
+    def post(self, request, slug):
+        # Get the specific writing
+        writing = get_object_or_404(Writing, slug=slug)
+
+        # Check if the user has already liked the post
+        if writing.likes.filter(id=request.user.id).exists():
+            # If so, unlike the post
+            writing.likes.remove(request.user)
+        else:
+            # If not, like the post
+            writing.likes.add(request.user)
+        # Redirect the user to the same page
+        return HttpResponseRedirect(reverse('writing_detail', args=[slug]))

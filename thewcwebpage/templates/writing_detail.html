@@ -32,7 +32,33 @@
                 </p>
                 <div class="row">
                     <div class="col-1">
-                        <strong class="text-secondary"><i class="far fa-heart"></i> {{ writing.total_likes }} </strong>
+                        <strong>
+                            {% if user.is_authenticated %}
+                                <form action="{% url "writing_like" writing.slug %}" method="POST" class="d-inline">
+                                {% csrf_token %}
+                                {% if liked %}
+                                    <button type="submit" name="blogpost_id"
+                                        value="{{writing.slug}}" class="btn-like">
+                                        <!--fas = font awesome solid-->
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                {% else %}
+                                    <button type="submit" name="blogpost_id"
+                                        value="{{writing.slug}}" class="btn-like">
+                                        <!--far = font awesome regular-outlined-->
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                {% endif %}
+                                </form>
+                            {% else %}
+                                <span class="text-secondary">
+                                    <i class="far fa-heart"></i>
+                                </span>
+                            {% endif %}
+                            <span class="text-secondary">
+                                {{ writing.total_likes }}
+                            </span>
+                        </strong>
                     </div>
                     <div class="col-1">
                         {% with comments.count as total_comments %}
@@ -80,6 +106,7 @@
                     <form method="POST" style:"margin-top: 1.3em;">
                         {{ comment_form | crispy }}
                         {% csrf_token %}
+                        <br>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     {% endif %}
                 {% endif %}
