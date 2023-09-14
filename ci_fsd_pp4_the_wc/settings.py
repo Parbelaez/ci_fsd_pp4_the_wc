@@ -15,6 +15,7 @@ import os
 import dj_database_url
 import django_heroku
 from decouple import config
+from django.contrib.messages import constants as messages
 
 if os.path.isfile("env.py"):
     import env
@@ -72,6 +73,19 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 # This is the URL that the user will be redirected to after logging out.
 LOGOUT_REDIRECT_URL = '/'
+
+# This is the mapping of the message level (e.g. messages.ERROR) to a CSS class.
+# https://docs.djangoproject.com/en/4.2/ref/contrib/messages/#message-tags
+# As bootstrap will be used, we need to use the bootstrap alert classes.
+# https://getbootstrap.com/docs/5.0/components/alerts/
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'alert-danger',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.INFO: 'alert-info',
+    messages.DEBUG: 'alert-secondary',
+}
 
 # Crispy Forms does not support Bootstrap 5 yet, so we need to set the
 # template pack to Bootstrap 4.
