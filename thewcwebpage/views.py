@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.views import generic, View
 from django.http import HttpResponseRedirect
 from .models import Writing, Comment
-from .forms import CommentForm
+from .forms import CommentForm, WritingForm
 
 # From the generic class-based views we are importing the ListView
 # which is used to display a list of objects (DB tables or content)
@@ -95,3 +95,18 @@ class WritingLike(View):
             writing.likes.add(request.user)
         # Redirect the user to the same page
         return HttpResponseRedirect(reverse('writing_detail', args=[slug]))
+
+class NewWritingView(generic.CreateView):
+    model = Writing
+    template_name = 'new_writing.html'
+    fields = ('title', 'main_genre', 'sub_genre', 'content', 'featured_image', 'abstract')
+
+    def post(self, request):
+        writing_form = WritingForm(data=request.POST or None)
+
+        if writing_form.is_valid():
+            writing = writing_form.save(commit=False)
+            writing.save()
+        else:
+            writing_form = writingForm()
+        return render(request, 'new_writing.html', {'writing_form': WritingForm()})

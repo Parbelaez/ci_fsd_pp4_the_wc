@@ -23,9 +23,9 @@ class WritingAdmin(SummernoteModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(SummernoteModelAdmin):
     summernote_fields = ('content',)
-    list_display = ('writing', 'author', 'created_on', 'updated_on', 'status', 'writing_type', 'total_likes', 'approved_comment')
-    list_filter = ('status', 'created_on', 'writing_type', 'approved_comment')
-    search_fields = ['writing', 'content', 'author', 'writing_type']
+    list_display = ('writing', 'author', 'created_on', 'updated_on', 'status', 'comment_type', 'total_likes', 'approved_comment')
+    list_filter = ('status', 'created_on', 'comment_type', 'approved_comment')
+    search_fields = ['writing', 'content', 'author', 'comment_type']
     actions = ['approve_comments']
 
     # This method is used to approve comments from the admin panel.

@@ -6,7 +6,7 @@ from cloudinary.models import CloudinaryField
 # The default value is 0, which means the post is a draft, until the author
 # (or admin) changes the status to 1, which means the post is published.
 STATUS = ((0, "Draft"), (1, "Publish"))
-WRITING_TYPE = ((0, "Comment"), (1, "Writing"))
+COMMENT_TYPE = ((0, "Comment"), (1, "Writing"))
 GENRES = (('Action and Adventure', 'Action and Adventure'),
     ('Comedy', 'Comedy'), ('Crime and Mistery', 'Crime and Mistery'),
     ('Fantasy', 'Fantasy'), ('Horror', 'Horror'), ('SciFi', 'SciFi'),
@@ -31,7 +31,7 @@ class Writing(models.Model):
         ordering = ['-created_on']
 
     def __str__(self):
-        return self.title
+        return self.title + ' | ' + str(self.author)
 
     def total_likes(self):
         return self.likes.count()
@@ -46,7 +46,7 @@ class Comment(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
     status = models.IntegerField(choices=STATUS, default=0)
-    writing_type = models.IntegerField(choices=WRITING_TYPE, default=0)
+    comment_type = models.IntegerField(choices=COMMENT_TYPE, default=0)
     likes = models.ManyToManyField(User, related_name='comment_likes', blank=True)
     approved_comment = models.BooleanField(default=False)
 
