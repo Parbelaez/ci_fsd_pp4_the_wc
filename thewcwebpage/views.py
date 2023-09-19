@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse
+from django.urls import reverse_lazy
 # With this we are importing the generic class-based views
 from django.views import generic, View
 from django.http import HttpResponseRedirect
@@ -99,14 +100,12 @@ class WritingLike(View):
 class NewWritingView(generic.CreateView):
     model = Writing
     template_name = 'new_writing.html'
-    fields = ('title', 'main_genre', 'sub_genre', 'content', 'featured_image', 'abstract')
+    form_class = WritingForm
+    success_url = reverse_lazy('home')
 
-    def post(self, request):
-        writing_form = WritingForm(data=request.POST or None)
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.author = self.request.user
+        self.object.save()
 
-        if writing_form.is_valid():
-            writing = writing_form.save(commit=False)
-            writing.save()
-        else:
-            writing_form = writingForm()
-        return render(request, 'new_writing.html', {'writing_form': WritingForm()})
+        return HttpResponseRedirect(self.get_success_url())

@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                 ('updated_on', models.DateTimeField(auto_now=True)),
                 ('content', models.TextField()),
                 ('status', models.IntegerField(choices=[(0, 'Draft'), (1, 'Publish')], default=0)),
-                ('comment_type', models.IntegerField(choices=[(0, 'Comment'), (1, 'Writing')], default=0)),
+                ('writing_type', models.IntegerField(choices=[(0, 'Comment'), (1, 'Writing')], default=0)),
                 ('approved_comment', models.BooleanField(default=False)),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to=settings.AUTH_USER_MODEL)),
                 ('likes', models.ManyToManyField(blank=True, related_name='comment_likes', to=settings.AUTH_USER_MODEL)),

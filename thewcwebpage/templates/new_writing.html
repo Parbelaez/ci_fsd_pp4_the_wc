@@ -7,12 +7,11 @@
         <div class="col-md-6">
             {% if user.is_authenticated %}
             <h2>{{ user.first_name }}, you are inspired... now write!</h2>
-            <form method="post" action="{% url "new_writing" %}">
+            <form method="POST">
                 {% csrf_token %}
-                {% comment %} {{ writing_form | crispy }} {% endcomment %}
-                {% crispy form %}
+                {{ form|crispy }}
                 <br>
-                <button type="submit" class="btn btn-success">I am finished!</button>
+                <input type="submit" value="submit"></input>
                 <br><br>
             </form>
             {% else %}

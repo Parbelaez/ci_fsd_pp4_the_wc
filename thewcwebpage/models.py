@@ -1,12 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
+from django.utils.text import slugify
+from django.core.exceptions import ValidationError
 
 # The status flag determines whether a post is a draft or published.
 # The default value is 0, which means the post is a draft, until the author
 # (or admin) changes the status to 1, which means the post is published.
 STATUS = ((0, "Draft"), (1, "Publish"))
-COMMENT_TYPE = ((0, "Comment"), (1, "Writing"))
+writing_type = ((0, "Comment"), (1, "Writing"))
 GENRES = (('Action and Adventure', 'Action and Adventure'),
     ('Comedy', 'Comedy'), ('Crime and Mistery', 'Crime and Mistery'),
     ('Fantasy', 'Fantasy'), ('Horror', 'Horror'), ('SciFi', 'SciFi'),
@@ -14,7 +16,7 @@ GENRES = (('Action and Adventure', 'Action and Adventure'),
 
 class Writing(models.Model):
     title = models.CharField(max_length=200, unique=True)
-    slug = models.SlugField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, null=False, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='writings')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -36,6 +38,15 @@ class Writing(models.Model):
     def total_likes(self):
         return self.likes.count()
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title) + '-' + str(self.author)
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        # return reverse("writing-detail", kwargs={"slug": self.slug})
+        return reverse("home")
+
 # The Comment model is used to store comments on posts.
 # But, this comments can turn into further writings for the already
 # existing post.
@@ -46,7 +57,7 @@ class Comment(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
     status = models.IntegerField(choices=STATUS, default=0)
-    comment_type = models.IntegerField(choices=COMMENT_TYPE, default=0)
+    writing_type = models.IntegerField(choices=writing_type, default=0)
     likes = models.ManyToManyField(User, related_name='comment_likes', blank=True)
     approved_comment = models.BooleanField(default=False)
 
