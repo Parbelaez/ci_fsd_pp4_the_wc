@@ -109,3 +109,16 @@ class NewWritingView(generic.CreateView):
         self.object.save()
 
         return HttpResponseRedirect(self.get_success_url())
+
+class UpdateWritingView(generic.UpdateView):
+    model = Writing
+    template_name = 'update_writing.html'
+    form_class = WritingForm
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.author = self.request.user
+        self.object.save()
+
+        return HttpResponseRedirect(self.get_success_url())
