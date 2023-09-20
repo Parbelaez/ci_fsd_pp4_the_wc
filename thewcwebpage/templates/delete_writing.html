@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Are you sure?{% endblock title %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            {% if user.is_authenticated %}
+            <h2>{{ user.first_name }}, are you sure you won't regret it?</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <br>
+                You are about to delete your writing with the title: <b>{{ writing.title }}</b>
+                <br><br>
+                <input type="submit" value="Delete"></input>
+                <br><br>
+            </form>
+            {% else %}
+            <h2>Please, log in to write!</h2>
+            {% endif %} 
+    </div>
+
+</div>
+
+{% endblock %}

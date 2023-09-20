@@ -71,7 +71,10 @@
                     </div>
                     <div class="col-1">
                         {% if user == writing.author %}
-                            <a href="{% url 'update_writing' writing.slug %}">Edit</a>
+                        <span>
+                            <a href="{% url 'update_writing' writing.slug %}" class='btn btn-secondary'>Edit</a>
+                            <a href="{% url 'delete_writing' writing.slug %}" class='btn btn-danger'>Delete</a>
+                        </span>
                         {% endif %}
                     </div>
                 </div>

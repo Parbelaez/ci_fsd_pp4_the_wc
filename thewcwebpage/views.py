@@ -122,3 +122,14 @@ class UpdateWritingView(generic.UpdateView):
         self.object.save()
 
         return HttpResponseRedirect(self.get_success_url())
+
+class DeleteWritingView(generic.DeleteView):
+    model = Writing
+    template_name = 'delete_writing.html'
+    success_url = reverse_lazy('home')
+
+    def get_object(self, queryset=None):
+        writing = super().get_object()
+        if not writing.author == self.request.user:
+            raise Http404
+        return writing
