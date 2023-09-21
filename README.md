@@ -395,7 +395,7 @@ admin.site.register(Writing, WritingAdmin)
 
 Now, the writings and comments have a proper text editor:
 
-![Admin panel](./readmeimages/writings_summeernote.png)
+![Admin panel](./readmeimages/writings_summernote.png)
 
 To see the full definition of the models, please refer to the code (admin.py and models.py files).
 

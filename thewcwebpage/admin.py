@@ -1,6 +1,12 @@
 from django.contrib import admin
-from .models import Writing, Comment
+from .models import Writing, Comment, Genre
 from django_summernote.admin import SummernoteModelAdmin
+
+@admin.register(Genre)
+class GenreAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    list_filter = ('name',)
+    search_fields = ['name']
 
 @admin.register(Writing)
 class WritingAdmin(SummernoteModelAdmin):

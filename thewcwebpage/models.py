@@ -14,14 +14,23 @@ GENRES = (('Action and Adventure', 'Action and Adventure'),
     ('Fantasy', 'Fantasy'), ('Horror', 'Horror'), ('SciFi', 'SciFi'),
     ('Romance', 'Romance'), ('Poetry', 'Poetry'), ('Other', 'Other'))
 
+class Genre(models.Model):
+    name = models.CharField(choices=GENRES, max_length=20, default='Other')
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("home")
+
 class Writing(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, null=False, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='writings')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    main_genre = models.CharField(choices=GENRES, max_length=20)
-    sub_genre = models.CharField(choices=GENRES, max_length=20, blank=True)
+    main_genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='main_genre')
+    sub_genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='sub_genre', blank=True)
     content = models.TextField()
     featured_image = CloudinaryField('image', default='placeholder')
     abstract = models.TextField()
