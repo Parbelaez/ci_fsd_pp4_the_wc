@@ -236,11 +236,11 @@ echo web: gunicorn django_crm.wsgi:application > Procfile
 
 ### Add the app file to your urls definition
 
-To be able to access the app, it is needed to add the app file to the urls definition in the urls.py file. For this, the project urls.py file is modified by adding the following line (and importing include):
+To be able to access the app, it is needed to add the app file to the urls definition in the urls.py file. Let's say, this is the connector between the project url and the app urls. For this, the project urls.py file is modified by adding the following line (and importing include), and this should be done for every app in the project:
 
 ```Python
 from django.contrib import admin
-from django.urls import path, include  # include added for thewcwebpage app
+from django.urls import path, included
 
 urlpatterns = [
     path('admin/', admin.site.urls),
