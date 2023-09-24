@@ -73,6 +73,8 @@
                         {% if user == writing.author %}
                         <span>
                             <a href="{% url 'update_writing' writing.slug %}" class='btn btn-secondary'>Edit</a>
+                        </span>
+                        <span>
                             <a href="{% url 'delete_writing' writing.slug %}" class='btn btn-danger'>Delete</a>
                         </span>
                         {% endif %}
@@ -110,14 +112,20 @@
                         Your comment is awaiting approval
                     </div>
                 {% else %}
+                    <!--Check that only authenticated users can post comments/further writings-->
                     {% if user.is_authenticated %}
-                    <h3>Leave a comment:</h3>
-                    <p>Posting as: {{ user.username }} </p>
-                    <form method="POST" style:"margin-top: 1.3em;">
-                        {{ comment_form | crispy }}
-                        {% csrf_token %}
+                        <!--Check that the writing is open for comments (less than 7 days have passed)-->
+                        {% if writing.can_comment %}
+                        <h3>Leave a comment:</h3>
+                        <p>Posting as: {{ user.username }} </p>
+                        <form method="POST" style:"margin-top: 1.3em;">
+                            {{ comment_form | crispy }}
+                            {% csrf_token %}
                         <br>
                         <button type="submit" class="btn btn-primary">Submit</button>
+                        {% else %}
+                            <h3>Sorry, this writing's iteration is already closed.</h3>
+                        {%endif%}
                     {% endif %}
                 {% endif %}
             </div>

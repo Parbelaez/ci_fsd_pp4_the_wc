@@ -9,6 +9,7 @@ from .forms import CommentForm, WritingForm
 # From the generic class-based views we are importing the ListView
 # which is used to display a list of objects (DB tables or content)
 # in a specific order
+
 class WritingListView(generic.ListView):
     model = Writing
     # This is Django's way of querying the database
@@ -19,8 +20,12 @@ class WritingListView(generic.ListView):
     # Paginate determines how many posts are shown per page.
     paginate_by = 10
 
-    def home(request):
-        return render(request, 'index.html')
+class MyWritingsListView(WritingListView):
+    # This is a method to override the queryset
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(author=self.request.user)
+        return qs
 
 class WritingDetailView(generic.View):
     model = Writing

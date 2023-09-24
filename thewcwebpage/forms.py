@@ -1,7 +1,5 @@
 from .models import Comment, Writing, Genre
 from django import forms
-# from django.utils.text import slugify
-# from django.core.exceptions import ValidationError
 
 class CommentForm(forms.ModelForm):
     class Meta:

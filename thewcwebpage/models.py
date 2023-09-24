@@ -1,8 +1,10 @@
+import datetime
 from django.db import models
 from django.contrib.auth.models import User
-from cloudinary.models import CloudinaryField
 from django.utils.text import slugify
 from django.core.exceptions import ValidationError
+from django.utils import timezone
+from cloudinary.models import CloudinaryField
 
 # The status flag determines whether a post is a draft or published.
 # The default value is 0, which means the post is a draft, until the author
@@ -56,6 +58,11 @@ class Writing(models.Model):
         # return reverse("writing-detail", kwargs={"slug": self.slug})
         return reverse("home")
 
+    @property
+    def can_comment(self):
+        if self.created_on > timezone.now() - datetime.timedelta(days=7):
+            return True
+
 # The Comment model is used to store comments on posts.
 # But, this comments can turn into further writings for the already
 # existing post.
@@ -78,3 +85,5 @@ class Comment(models.Model):
 
     def total_likes(self):
         return self.likes.count()
+
+    
