@@ -38,6 +38,7 @@ class WritingDetailView(generic.View):
         writing = get_object_or_404(queryset, slug=slug)
         # comments = writing.comments.filter(approved_comment=True).order_by('-created_on')
         comments = writing.comments.order_by('-created_on')
+        # If the user is not the author of the post, only approved comments are shown
         if writing.author != request.user:
             comments = comments.filter(approved_comment=True)
         liked = False
@@ -141,3 +142,20 @@ class DeleteWritingView(generic.DeleteView):
         if not writing.author == self.request.user:
             raise Http404
         return writing
+
+class DeleteCommentView(generic.DeleteView):
+    model = Comment
+    template_name = 'writing_detail.html'
+    success_url = reverse_lazy('writing_detail')
+
+    def get_object(self, queryset=None):
+        comment = super().get_object()
+        if not comment.author == self.request.user:
+            raise Http404
+        return comment
+
+class ApproveCommentView(generic.View):
+    def post(self, request, pk):
+        comment = get_object_or_404(Comment, pk=pk)
+        comment.update(approved_comment=True)
+        return HttpResponseRedirect(reverse('writing_detail', args=[comment.writing.slug]))

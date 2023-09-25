@@ -103,6 +103,12 @@
                         </span> wrote:
                     </p>
                     {{ comment.content|linebreaks }}
+                    {% if user == writing.author and not comment.approved_comment %}
+                        <a href="{% url 'approve_comment' comment.pk %}" class='btn btn-success'>Approve</a>
+                        <span>
+                            <a href="{% url 'delete_comment' comment.pk %}" class='btn btn-delete'>Delete</a>
+                        </span>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </div>
