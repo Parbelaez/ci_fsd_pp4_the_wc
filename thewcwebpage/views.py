@@ -36,7 +36,10 @@ class WritingDetailView(generic.View):
         queryset = Writing.objects.filter(status=1)
         # Variable to get the published writing with the slug passed in the URL
         writing = get_object_or_404(queryset, slug=slug)
-        comments = writing.comments.filter(approved_comment=True).order_by('-created_on')
+        # comments = writing.comments.filter(approved_comment=True).order_by('-created_on')
+        comments = writing.comments.order_by('-created_on')
+        if writing.author != request.user:
+            comments = comments.filter(approved_comment=True)
         liked = False
         if writing.likes.filter(id=request.user.id).exists():
             liked = True

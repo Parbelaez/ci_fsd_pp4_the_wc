@@ -26,18 +26,15 @@ If you are a writer, you can create a new story, or you can continue an existing
     * The Author can set a Sub Genre to give freedom of writing to her/his collaborators.
     * The Author must give an Abstract of what she/he thinks would lead the story. It should be comprehensive enough to set the tone and the mood of the story.
     * The Author can add an image to the story. This image will be used as the cover of the story. (Optional)
-    * The Author must give a deadline for entries.
+    * The Author must give a deadline for entries. On this first version, the deadline will be set to 1 week. But, in future versions, the Author will be able to set the deadline to whatever she/he wants.
 
 2. Any user with a registered account and access to the story (future feature) can add a comment to the story.
     * The comment can be a normal comment, or a proposal of story continuity (chosen from the *"type"* field).
 
-3. After the deadline is due, The Author will choose up to 3 writings and publish them indicating her/his preferred one. This Writing will immediately have a 10% weight more than the others.
+3. After the deadline is due, The Author will choose the writing that she/he likes the most and re-publish the original writing + the chosen extension.
+In the future, this will be a voting system, where the original author will chose up to 3 continuations, and will vote for the one that she/he likes the most. Thid vote will have a 10% weight, and the calculation of the wining one will be made based on this 10% + the total number of votes (likes) that each writing has.
 
-4. All users can vote by liking the writings (and can vote for the three of them if they want) for their preferred writing. The voting will be open for 1 week.
-
-5. After the voting period is over, the writing with the most votes (including that 10% weight from the Authors chosen one) will be chosen as the next chapter of the story.
-
-6. The process will be repeated until the writer decides to end the story, or until the story is not voted for 3 times in a row.
+4. The process will be repeated until the writer decides to end the story, or until the story is not voted for 3 times in a row.
 
 *NOTE:* on every iteration, the Author will decide if she/he would like to add a new chapter to the story, or if she/he would like to end the story.
 
@@ -269,12 +266,14 @@ The DB should have tables for the following models:
 
 * **WRITING:** where all data of each story is stored.
 
+* **GENRE:** where the name of each genre is stored.
+
 | key          | Name          | Type             |
 |--------------|---------------|------------------|
 |              | Title         | Char[200]        |
 | FK           | Author        | UserModel        |
-|              | Main_Genre    | Char[20]         |
-|              | Sub_Genre     | Char[20]         |
+| FK           | Main_Genre    | Char[20]         |
+| FK           | Sub_Genre     | Char[20]         |
 |              | Created On    | DateTime         |
 |              | Updated On    | DateTime         |
 |              | Content       | TextField        |
@@ -284,7 +283,7 @@ The DB should have tables for the following models:
 |              | Slug (unique) | SlugField        |
 |              | Status        | Integer          |
 
-The following GENRES are available:
+The following GENRES are available, and, as mentioned above are part of another model called Genre:
 
 - Action and Adventure
 - Comedy
@@ -317,10 +316,11 @@ The models are created in the models.py file. In this case, the models are:
 But, the tables are not yet accessible in the admin panel. To do so, and as we have already created a superuser in the previous steps, it is needed to register the models in the admin.py file by adding the following lines:
 
 ```Python
-from .models import Writing, Comment
+from .models import Writing, Comment, Genre
 
 admin.site.register(Writing)
 admin.site.register(Comment)
+admin.site.register(Genre)
 ```
 
 Django will automatically pluralize the name of the model, so it will be Writings and Comments in the admin panel.
@@ -690,7 +690,6 @@ heroku create
 
 ### Add the environment variables to Heroku
 
-Then, it is needed to add the environment variables to Heroku. This is done by running the following command:
+Then, it is needed to add the environment variables to Heroku. This is done by filling the form in the Settings tab of the Heroku app.
 
-```shell
 

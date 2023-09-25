@@ -62,6 +62,10 @@ class Writing(models.Model):
     def can_comment(self):
         if self.created_on > timezone.now() - datetime.timedelta(days=7):
             return True
+    
+    @property
+    def total_comments(self):
+        return self.comments.count()
 
 # The Comment model is used to store comments on posts.
 # But, this comments can turn into further writings for the already
@@ -85,5 +89,3 @@ class Comment(models.Model):
 
     def total_likes(self):
         return self.likes.count()
-
-    

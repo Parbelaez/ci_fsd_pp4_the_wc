@@ -69,16 +69,18 @@
                         </strong>
                         {% endwith %}
                     </div>
+                    {% if user == writing.author %}
                     <div class="col-1">
-                        {% if user == writing.author %}
                         <span>
                             <a href="{% url 'update_writing' writing.slug %}" class='btn btn-secondary'>Edit</a>
                         </span>
+                    </div>
+                    <div class="col-1">
                         <span>
                             <a href="{% url 'delete_writing' writing.slug %}" class='btn btn-danger'>Delete</a>
                         </span>
-                        {% endif %}
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -100,7 +102,7 @@
                             {{ comment.created_on }}
                         </span> wrote:
                     </p>
-                    {{ comment.content | linebreaks }}
+                    {{ comment.content|linebreaks }}
                 </div>
                 {% endfor %}
             </div>
