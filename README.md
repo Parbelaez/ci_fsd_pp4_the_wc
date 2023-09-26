@@ -698,3 +698,16 @@ Then, it is needed to add the environment variables to Heroku. This is done by s
 ![Heroku config vars](./readmeimages/heroku_config_vars.png)
 
 During the development, remember to always set the DISABLE_COLLECTSTATIC variable to 1, so Heroku does not try to collect the static files.
+
+
+## Bugs
+
+### Fixed Bugs
+
+### Pending Bugs
+
+The DB hangs when stressed with queries from different users.
+
+![DB hangs](./readmeimages/db_hangs.png)
+
+It was asked during a tutoring session, and it was indicated that Elephant SQL is a best effort service on the free tier, so  it might be a problem with the DB provider, and plan.
