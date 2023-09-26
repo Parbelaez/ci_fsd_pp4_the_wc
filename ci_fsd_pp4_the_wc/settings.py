@@ -74,6 +74,8 @@ LOGIN_REDIRECT_URL = '/'
 # This is the URL that the user will be redirected to after logging out.
 LOGOUT_REDIRECT_URL = '/'
 
+ACCOUNT_FORMS = {'signup': 'thewcwebpage.forms.CustomSignupForm'}
+
 # This is the mapping of the message level (e.g. messages.ERROR) to a CSS class.
 # https://docs.djangoproject.com/en/4.2/ref/contrib/messages/#message-tags
 # As bootstrap will be used, we need to use the bootstrap alert classes.

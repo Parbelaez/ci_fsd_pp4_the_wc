@@ -2,15 +2,12 @@
 
 ## The idea behind the webpage
 
- The Writers Club, or WC, is where writers can share their work and get feedback from other writers. It is a place where writers can find inspiration, and where they can find other writers to collaborate with.
+The Writers Club, or WC, is where writers can share their work and get feedback from other writers. It is a place where writers can find inspiration, and where they can find other writers to collaborate with.
 
- Why WC... this is simple, an idea is something that intoxicates you until to push it out of your body, OK, brain, so the WC is the place where you can do that. But, ideas are not always complete. Sometimes, we, writers, start evrything with a punch-line, or and ending, or even a middle. So, the WC is the place where you can find the missing pieces of your ideas, and where you can help others to find the missing pieces of their ideas.
+But, the WC is not only for writers, it is also for readers. It is a place where readers can find new stories to read, and where they can find new writers to follow.
 
- But, the WC is not only for writers, it is also for readers. It is a place where readers can find new stories to read, and where they can find new writers to follow.
+And, even better, it is also for photographers. Share your photos, and inspire the writers.
 
- And, even better, it is also for photographers.
-
- Do you think that your photo deserves to be expanded with a written story? Do you think that your photo can inspire a writer to write a story? Then, the WC is the place for you. Upload your photo, with or without an initial story, and let the writers do the rest.
 
 ## How does it work
 
@@ -31,12 +28,21 @@ If you are a writer, you can create a new story, or you can continue an existing
 2. Any user with a registered account and access to the story (future feature) can add a comment to the story.
     * The comment can be a normal comment, or a proposal of story continuity (chosen from the *"type"* field).
 
-3. After the deadline is due, The Author will choose the writing that she/he likes the most and re-publish the original writing + the chosen extension.
+3. After the deadline is due, The Author will choose the writing(s) that she/he likes the most and re-publish the original writing + the chosen extension.
 In the future, this will be a voting system, where the original author will chose up to 3 continuations, and will vote for the one that she/he likes the most. Thid vote will have a 10% weight, and the calculation of the wining one will be made based on this 10% + the total number of votes (likes) that each writing has.
 
-4. The process will be repeated until the writer decides to end the story, or until the story is not voted for 3 times in a row.
+4. (Future implementation) The process will be repeated until the writer decides to end the story, or until the story is not voted for 3 times in a row.
 
 *NOTE:* on every iteration, the Author will decide if she/he would like to add a new chapter to the story, or if she/he would like to end the story.
+
+### Important notes for the initial release
+
+* The deadline is set to 1 week, and it is not configurable by the Author.
+* The Author can only choose as many writings as she/he would like to continue the story.
+* The Author can only choose the writings that were posted before the deadline.
+* The writings are only published by the website admin. This prevents Authors posting offensive content.
+* The comments and further writings are published by the original writing Author.
+* The comments and further writings cannot be edited or deleted by the original writing Author. This forces the contributing author to post revised and well thought writings.
 
 ## Project setup
 
@@ -265,6 +271,8 @@ The DB should have tables for the following models:
 * **USER:** where all data of each registered user is stored.
 
 * **WRITING:** where all data of each story is stored.
+
+* **COMMENT:** where all data of each comment is stored.
 
 * **GENRE:** where the name of each genre is stored.
 
@@ -711,3 +719,16 @@ The DB hangs when stressed with queries from different users.
 ![DB hangs](./readmeimages/db_hangs.png)
 
 It was asked during a tutoring session, and it was indicated that Elephant SQL is a best effort service on the free tier, so  it might be a problem with the DB provider, and plan.
+
+## Website functionality
+
+### General presentation
+
+
+
+## Credits
+
+* Placeholder photography: Image by valeria_aksakova on Freepik.
+* Initial Template based on the "I Think Therefore I Blog" tutorial from Code Institute.
+* Many snippets of code and ideas were taken from Codemy.com, and from the Django documentation (no specific video or document is mentioned, as all of them are adaptations of the original code and ideas).
+* Thanks to Jubril Akolade, who has guided me on the right path during the development of this project, and the previous ones.
