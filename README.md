@@ -484,7 +484,7 @@ For the register, also a new webpage was created, and the form was crated direct
 *NOTE:* as seen in the comments of the views.py file, the password field must be gotten using the get method, and not the post method. This is because Django does not allow to get the password using the post method (reported bug).
 
 
-### OPTIONAL: Captcha and crispy forms
+### OPTIONAL: Captcha and crispy forms -not implemented in this version-
 
 The captcha was added by using the django-simple-captcha package. To install it, run the following command:
 

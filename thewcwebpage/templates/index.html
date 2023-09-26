@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}Welcome to the WC!{% endblock title %}
 {% block content %}
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
             <div class="col-12 mt-3 left">
                 <div class="row">
                     {% for writing in writing_list %}
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="card mb-3" style="max-width: 540px;">
                                 <div class="row g-0">
                                     <div class="col-md-4">
@@ -22,7 +22,7 @@
                                                 <a href="{% url 'writing_detail' writing.slug %}" class="post-link">
                                                     <h5 class="card-title">{{ writing.title }}</h5>
                                                 </a>
-                                                <p class="card-text">{{ writing.abstract }}</p>
+                                                <p class="card-text">{{ writing.abstract|safe }}</p>
                                                 <p class="card-text">
                                                     <small class="text-body-secondary">Author: {{ writing.author }} &#124; </small>
                                                     <small class="text-body-secondary">Genre: {{ writing.main_genre }}</small>
@@ -40,7 +40,7 @@
                                     </div>
                                 </div>
                             </div>
-                        {% if forloop.counter|divisibleby:3 %}
+                        {% if forloop.counter|divisibleby:2 %}
                         </div>
                         <div class="row">
                         {% endif %}

@@ -16,7 +16,7 @@
             <div class="d-none d-md-block col-md-6 masthead-image">
                 <!-- The featured image URL goes in the src attribute -->
                 {% if "placeholder" in writing.featured_image.url %}
-                <img src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg" width="100%">
+                <img src="https://res.cloudinary.com/dxn1jm08k/image/upload/v1695738133/successful-computer-gadget-digital-close_yho1rp.jpg" width="100%">
                 {% else %}
                 <img src=" {{ writing.featured_image.url }}" width="100%">
                 {% endif %}
@@ -91,7 +91,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8 card mb-4  mt-3 ">
+        <div class="col-md-6 card mb-4  mt-3 ">
             <h3>Comments:</h3>
             <div class="card-body">
                 {% for comment in comments %}
@@ -102,7 +102,7 @@
                             {{ comment.created_on }}
                         </span> wrote:
                     </p>
-                    {{ comment.content|linebreaks }}
+                    {{ comment.content|safe|linebreaks }}
                     {% if user == writing.author and not comment.approved_comment %}
                         <a href="{% url 'approve_comment' comment.pk %}" class='btn btn-success'>Approve</a>
                     {% endif %}
@@ -120,7 +120,7 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="col-md-4 card mb-4  mt-3 ">
+        <div class="col-md-6 card mb-4  mt-3 ">
             <div class="card-body">
                 {% if commented %}
                     <div class="alert alert-success" role="alert">

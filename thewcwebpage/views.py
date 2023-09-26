@@ -18,7 +18,7 @@ class WritingListView(generic.ListView):
     queryset = Writing.objects.filter(status=1).order_by('-created_on')
     template_name = 'index.html'
     # Paginate determines how many posts are shown per page.
-    paginate_by = 10
+    paginate_by = 6
 
 class MyWritingsListView(WritingListView):
     # This is a method to override the queryset
@@ -156,3 +156,6 @@ class SelectCommentView(generic.View):
         comment.selected = True
         comment.save()
         return HttpResponseRedirect(reverse('writing_detail', args=[comment.writing.slug]))
+
+class AboutView(generic.TemplateView):
+    template_name = 'about.html'
