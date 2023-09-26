@@ -60,12 +60,20 @@ class Writing(models.Model):
 
     @property
     def can_comment(self):
-        if self.created_on > timezone.now() - datetime.timedelta(days=7):
+        if self.updated_on > timezone.now() - datetime.timedelta(days=7):
             return True
     
     @property
     def total_comments(self):
         return self.comments.count()
+
+    @property
+    def updated_content(self):
+        selected_comments = list(self.comments.filter(selected=True).order_by('selected_on').values_list('content', flat=True))
+        if len(selected_comments) == 0:
+            return self.content
+        selected_comments = "\n".join(selected_comments)
+        return f"{self.content}\n\n{selected_comments}"
 
 # The Comment model is used to store comments on posts.
 # But, this comments can turn into further writings for the already
@@ -81,6 +89,7 @@ class Comment(models.Model):
     likes = models.ManyToManyField(User, related_name='comment_likes', blank=True)
     approved_comment = models.BooleanField(default=False)
     selected = models.BooleanField(default=False)
+    selected_on = models.DateTimeField(null=True, blank=True, default=datetime.datetime.now)
 
     class Meta:
         ordering = ['-created_on']

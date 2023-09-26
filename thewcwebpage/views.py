@@ -155,6 +155,8 @@ class SelectCommentView(generic.View):
         comment = get_object_or_404(Comment, pk=pk)
         comment.selected = True
         comment.save()
+        comment.writing.updated_on = datetime.datetime.now()
+        comment.writing.save()
         return HttpResponseRedirect(reverse('writing_detail', args=[comment.writing.slug]))
 
 class AboutView(generic.TemplateView):
