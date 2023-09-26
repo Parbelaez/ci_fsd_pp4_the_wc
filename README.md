@@ -347,7 +347,6 @@ Django will automatically pluralize the name of the model, so it will be writing
 
 And, will create the table in the database.
 
-![Postgres DB](./readmeimages/DB.png)
 
 ### Create new writings for the normal user
 
@@ -690,6 +689,12 @@ heroku create
 
 ### Add the environment variables to Heroku
 
-Then, it is needed to add the environment variables to Heroku. This is done by filling the form in the Settings tab of the Heroku app.
+Then, it is needed to add the environment variables to Heroku. This is done by setting the variables in the config panel of the settings, following these three steps:
 
+![Heroku Menu](./readmeimages/heroku_menu.png)
 
+![Heroku reveal](./readmeimages/heroku_reveal.png)
+
+![Heroku config vars](./readmeimages/heroku_config_vars.png)
+
+During the development, remember to always set the DISABLE_COLLECTSTATIC variable to 1, so Heroku does not try to collect the static files.

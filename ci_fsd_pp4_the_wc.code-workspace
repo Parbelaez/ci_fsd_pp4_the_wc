@@ -1,10 +1,8 @@
 {
 	"folders": [
 		{
+			"name": "ci_fsd_pp4_the_wc",
 			"path": "."
-		},
-		{
-			"path": "../django_crm/readmeimages"
 		}
 	],
 	"settings": {}
