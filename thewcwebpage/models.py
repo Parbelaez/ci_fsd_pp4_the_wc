@@ -80,6 +80,7 @@ class Comment(models.Model):
     writing_type = models.IntegerField(choices=writing_type, default=0)
     likes = models.ManyToManyField(User, related_name='comment_likes', blank=True)
     approved_comment = models.BooleanField(default=False)
+    selected = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-created_on']

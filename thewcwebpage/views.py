@@ -157,5 +157,8 @@ class DeleteCommentView(generic.DeleteView):
 class ApproveCommentView(generic.View):
     def post(self, request, pk):
         comment = get_object_or_404(Comment, pk=pk)
-        comment.update(approved_comment=True)
+        print(comment)
+        comment.update(approved_comment = True)
+        print(comment)
+        comment.save()
         return HttpResponseRedirect(reverse('writing_detail', args=[comment.writing.slug]))
