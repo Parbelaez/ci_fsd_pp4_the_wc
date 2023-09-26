@@ -105,14 +105,16 @@
                     {{ comment.content|linebreaks }}
                     {% if user == writing.author and not comment.approved_comment %}
                         <a href="{% url 'approve_comment' comment.pk %}" class='btn btn-success'>Approve</a>
-                        {% if comment.writing_type = 1 %}
+                    {% endif %}
+                    {% if user == writing.author and comment.writing_type == 1 and comment.selected == 0 %}
                         <span>
                             <a href="{% url 'select_comment' comment.pk %}" class='btn btn-primary'>Select</a>
                         </span>
-                        {% endif %}
-                        <span>
-                            <a href="{% url 'delete_comment' comment.pk %}" class='btn btn-delete'>Delete</a>
-                        </span>
+                    {% endif %}
+                    {% if comment.selected == 1 %}
+                        <p class="font-weight-bold">
+                            <span class="text-success">Selected</span>
+                        </p>
                     {% endif %}
                 </div>
                 {% endfor %}

@@ -143,22 +143,16 @@ class DeleteWritingView(generic.DeleteView):
             raise Http404
         return writing
 
-class DeleteCommentView(generic.DeleteView):
-    model = Comment
-    template_name = 'writing_detail.html'
-    success_url = reverse_lazy('writing_detail')
-
-    def get_object(self, queryset=None):
-        comment = super().get_object()
-        if not comment.author == self.request.user:
-            raise Http404
-        return comment
-
 class ApproveCommentView(generic.View):
-    def post(self, request, pk):
+    def get(self, request, pk):
         comment = get_object_or_404(Comment, pk=pk)
-        print(comment)
-        comment.update(approved_comment = True)
-        print(comment)
+        comment.approved_comment = True
+        comment.save()
+        return HttpResponseRedirect(reverse('writing_detail', args=[comment.writing.slug]))
+
+class SelectCommentView(generic.View):
+    def get(self, request, pk):
+        comment = get_object_or_404(Comment, pk=pk)
+        comment.selected = True
         comment.save()
         return HttpResponseRedirect(reverse('writing_detail', args=[comment.writing.slug]))
