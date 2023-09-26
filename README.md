@@ -1,5 +1,14 @@
 # The WC (Writers Club) Webpage
 
+[View The WC on Heroku](https://thewcwebpage-83a6428384c3.herokuapp.com)
+
+![GitHub last commit](https://img.shields.io/github/last-commit/parbelaez/ci_fsd_pp4_the_wc?color=red)
+![GitHub contributors](https://img.shields.io/github/contributors/parbelaez/ci_fsd_pp4_the_wc?color=orange)
+![GitHub language count](https://img.shields.io/github/languages/count/parbelaez/ci_fsd_pp4_the_wc?color=yellow)
+![GitHub top language](https://img.shields.io/github/languages/top/parbelaez/ci_fsd_pp4_the_wc?color=green)
+![W3C Validation](https://img.shields.io/w3c-validation/html?color=blueviolet&targetUrl=https://thewcwebpage-83a6428384c3.herokuapp.com)
+
+
 ## The idea behind the webpage
 
 The Writers Club, or WC, is where writers can share their work and get feedback from other writers. It is a place where writers can find inspiration, and where they can find other writers to collaborate with.
@@ -318,6 +327,11 @@ The following GENRES are available, and, as mentioned above are part of another 
 |     | Writing Type     | Integer      |
 |     | Likes            | UserModel    |
 |     | Approved Comment | Boolean      |
+
+
+The the schema would look like this:
+
+![DB Schema](./readmeimages/db_tables_schema.png)
 
 The models are created in the models.py file. In this case, the models are:
 
@@ -707,6 +721,152 @@ Then, it is needed to add the environment variables to Heroku. This is done by s
 
 During the development, remember to always set the DISABLE_COLLECTSTATIC variable to 1, so Heroku does not try to collect the static files.
 
+## Website functionality
+
+### General presentation
+
+The website is divided in 3 main sections:
+
+1. The home page, where the user can see the latest stories, and the latest photos.
+2. The writing detail page, where the user can see the details of a story, and where the user can add a comment to the story.
+3. The writing admin page, where the user can create a new story, and where the user can add a new chapter to an existing story.
+
+Other sections are:
+
+* The login page, where the user can login to the website.
+* The registration page, where the user can register to the website.
+* The logout page, where the user can logout from the website.
+* The about page, where the user can see some information about the website.
+
+### The home page
+
+The home page is the page that is shown when the user first enters the webpage. It contains a grid of all writings crated so far, sorted by date.
+Every post has its own image, title, author, date, and a short description of the story. In case that no image was uploaded, a default image is shown.
+
+![Home page](./readmeimages/home_page.png)
+
+Any visitor can read the stories, but only registered users can write new stories and add comments to the stories.
+
+### The navbar
+
+The navbar is a Bootstrap navbar, and it is created in the navbar.html file. It contains the links to the different pages of the app, and it also contains the links to the login and registration pages. It is a responsive navbar, so it will adapt to the screen size, turning into a hamburger when it gets into the mobile size.
+
+For not logged in users, the navbar looks like this:
+
+![Navbar](./readmeimages/navbar_no_login.png)
+
+For logged in user, the navbar looks like this:
+
+![Navbar](./readmeimages/navbar_login.png)
+
+### The signup page
+
+For all account management, the allauth package was used. This package allows the developer to create a login and registration page, and it also allows the developer to customize the forms.
+
+The registration page is an extended form that allows the user to register to the website. It contains the following fields:
+
+![Signup page](./readmeimages/signup.png)
+
+* Username: the username that the user will use to login to the website.
+* Email: the email that the user will use to login to the website.
+* First name: the first name of the user (used for personalization in many pages and menus).
+* Last name: the last name of the user.
+* Password: the password that the user will use to login to the website.
+* Password confirmation: the password confirmation that the user will use to login to the website.
+
+**NOTE:** the rest of the account management pages are not shown here, as they are very similar to the signup page.
+
+### Confirmation messages
+
+The confirmation messages are shown in the base.html file, and they are shown in the top of the page. They are shown for 3 seconds, and then they disappear.
+
+![Confirmation message](./readmeimages/logout_message.png)
+
+Also, for the comments, so the user knows that the comment was added successfully.
+
+![Confirmation message](./readmeimages/waiting_approval.png)
+
+But, also, confirmation for the user, so she/he is aware that is a about to change a state like logout, or delete a writing.
+
+![Confirmation message](./readmeimages/confirmation_logout.png)
+
+![Confirmation message](./readmeimages/delete_writing.png)
+
+
+### The writing detail page
+
+This page is based on the CI blog tutorial, but with many tweaks to allow the functionality of The WC (The Writing Club).
+
+As mentioned before, the writing detail page is the page where the user can see the details of a story, and where the user can add a comment to the story. But, the users can create two types of comments: normal comments, and story continuations (called writtings).
+
+
+#### Admin panel control directly from the website
+
+
+The admin panel is a very powerful tool, but it is not very user friendly. Therefore, it was decided to create a new page in the website, where the user can create a new writing, and where the user can add a new chapter to an existing writing.
+
+This actions are only accessible by logged in users, and it is only accessible by the author of the writing.
+
+When a user posts a comment, the author can approve it, so it can be seen by anyone. But, if the comment has the "writing" type, then the author can choose it to continue the story.
+
+![Comments](./readmeimages/comments.png)
+
+If the original author chooses a comment to continue the story, then the original writing will be updated with the new content, and the new writing will be created. The new writing will be linked to the original writing, so the user can navigate between them.
+
+But, let's say there are many comments to continue the story, so the logic determines that the append of them will be in order of selection:
+
+views.py
+
+```Python
+class SelectCommentView(generic.View):
+    def get(self, request, pk):
+        comment = get_object_or_404(Comment, pk=pk)
+        comment.selected = True
+        comment.save()
+        comment.writing.updated_on = datetime.datetime.now()
+        comment.writing.save()
+        return HttpResponseRedirect(reverse('writing_detail', args=[comment.writing.slug]))
+```
+
+models.py in class Writing
+
+```Python
+@property
+    def updated_content(self):
+        selected_comments = list(self.comments.filter(selected=True).order_by('selected_on').values_list('content', flat=True))
+        if len(selected_comments) == 0:
+            return self.content
+        selected_comments = "\n".join(selected_comments)
+        return f"{self.content}\n\n{selected_comments}"
+```
+
+### Time controlled content
+
+One of the rules is that the users can only post comments to the writings that were posted before the deadline. Therefore, it was decided to add a time control to the content.
+
+This is done by adding the following lines to the models.py (class Writing) file:
+
+```Python
+ @property
+    def can_comment(self):
+        if self.updated_on > timezone.now() - datetime.timedelta(days=7):
+            return True
+```
+If the time is over, then the comments for that writing will be disabled, and the user will not be able to post any comment.
+
+![Comments disabled](./readmeimages/comments_disabled.png)
+
+
+### Full CRUD functionality
+
+It was included directly in the writing detail page, so the author can edit (update) the writing, and also delete it.
+
+![Edit writing](./readmeimages/edit_delete.png)
+
+![Edit writing](./readmeimages/edit_panel.png)
+
+**NOTE:** The deletion message was already shown in the confirmation messages section.
+
 
 ## Bugs
 
@@ -719,11 +879,6 @@ The DB hangs when stressed with queries from different users.
 ![DB hangs](./readmeimages/db_hangs.png)
 
 It was asked during a tutoring session, and it was indicated that Elephant SQL is a best effort service on the free tier, so  it might be a problem with the DB provider, and plan.
-
-## Website functionality
-
-### General presentation
-
 
 
 ## Credits
