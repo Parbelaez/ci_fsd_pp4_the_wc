@@ -16,7 +16,7 @@
             <div class="d-none d-md-block col-md-6 masthead-image">
                 <!-- The featured image URL goes in the src attribute -->
                 {% if "placeholder" in writing.featured_image.url %}
-                <img src="https://res.cloudinary.com/dxn1jm08k/image/upload/v1695738133/successful-computer-gadget-digital-close_yho1rp.jpg" width="100%">
+                <img src="https://res.cloudinary.com/dxn1jm08k/image/upload/v1695738133/successful-computer-gadget-digital-close_yho1rp.jpg" alt="writing_default" width="100%">
                 {% else %}
                 <img src=" {{ writing.featured_image.url }}" width="100%">
                 {% endif %}

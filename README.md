@@ -8,6 +8,58 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/parbelaez/ci_fsd_pp4_the_wc?color=green)
 ![W3C Validation](https://img.shields.io/w3c-validation/html?color=blueviolet&targetUrl=https://thewcwebpage-83a6428384c3.herokuapp.com)
 
+---
+
+## Table of contents
+
+* [The idea behind the webpage](#the-idea-behind-the-webpage)
+* [How does it work](#how-does-it-work)
+* [How to collaborate and rules](#how-to-collaborate-and-rules)
+    * [Important notes for the initial release](#important-notes-for-the-initial-release)
+* [Project setup](#project-setup)
+    * [Install dependencies](#install-dependencies)
+    * [Create the environment variables](#create-the-environment-variables)
+    * [Create a Django project](#create-a-django-project)
+    * [Create the app urls](#create-the-app-urls)
+    * [Create the models (DB structure)](#create-the-models-db-structure)
+    * [Create new writings for the normal user](#create-new-writings-for-the-normal-user)
+    * [Slug summernote_fields](#slug-summernote_fields)
+* [The design of the webpage and app](#the-design-of-the-webpage-and-app)
+    * [The views](#the-views)
+    * [The base template](#the-base-template)
+    * [The navbar](#the-navbar)
+    * [The home page](#the-home-page)
+    * [OPTIONAL: Captcha and crispy forms -not implemented in this version-](#optional-captcha-and-crispy-forms--not-implemented-in-this-version-)
+    * [View the writings in the website](#view-the-writings-in-the-website)
+    * [Allauth module](#allauth-module)
+* [Deployment -Heroku-](#deployment--heroku-)
+    * [Create a Heroku account](#create-a-heroku-account)
+    * [Install Heroku](#install-heroku)
+    * [Install the Heroku CLI](#install-the-heroku-cli)
+    * [Install django-heroku](#install-django-heroku)
+    * [Create a Procfile](#create-a-procfile)
+    * [Create a requirements.txt file](#create-a-requirementstxt-file)
+    * [Install python-decouple](#install-python-decouple)
+    * [Login to Heroku](#login-to-heroku)
+    * [Create a Heroku app](#create-a-heroku-app)
+    * [Add the environment variables to Heroku](#add-the-environment-variables-to-heroku)
+* [Website functionality](#website-functionality)
+    * [General presentation](#general-presentation)
+    * [The home page](#the-home-page-1)
+    * [The navbar](#the-navbar-1)
+    * [The signup page](#the-signup-page)
+    * [Confirmation messages](#confirmation-messages)
+    * [The writings detail page](#the-writings-detail-page)
+        * [Admin panel control directly from the website](#admin-panel-control-directly-from-the-website)
+    * [Time controlled content](#time-controlled-content)
+    * [Full CRUD functionality](#full-crud-functionality)
+* [Bugs](#bugs)
+    * [Fixed Bugs](#fixed-bugs)
+    * [Pending Bugs](#pending-bugs)
+* [Testing](#testing)
+* [Credits](#credits)
+
+- - -
 
 ## The idea behind the webpage
 
@@ -880,6 +932,9 @@ The DB hangs when stressed with queries from different users.
 
 It was asked during a tutoring session, and it was indicated that Elephant SQL is a best effort service on the free tier, so  it might be a problem with the DB provider, and plan.
 
+## Testing
+
+Please, refer to the dedicated file: [TESTING.md](TESTING.md)
 
 ## Credits
 
