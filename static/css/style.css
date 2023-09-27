@@ -157,3 +157,7 @@ footer {
     background: transparent;
     border: none;
 }
+
+.img-placeholder {
+    width: 100%;
+}
