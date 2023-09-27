@@ -961,6 +961,15 @@ The DB hangs when stressed with queries from different users.
 
 It was asked during a tutoring session, and it was indicated that Elephant SQL is a best effort service on the free tier, so  it might be a problem with the DB provider, and plan.
 
+#### Workaround
+
+As the free tier does not inlcude any tools besides the process termination, it is needed to go into the Elephant SQL Stats and manually terminate the connections.
+
+![DB hangs](./readmeimages/db_stats.png)
+
+![DB hangs](./readmeimages/db_connections.png)
+
+
 ## Testing
 
 Please, refer to the dedicated file: [TESTING.md](TESTING.md)
