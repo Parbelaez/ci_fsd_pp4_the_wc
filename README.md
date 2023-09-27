@@ -43,6 +43,7 @@
     * [Login to Heroku](#login-to-heroku)
     * [Create a Heroku app](#create-a-heroku-app)
     * [Add the environment variables to Heroku](#add-the-environment-variables-to-heroku)
+* [Agile Project](#agile-project)
 * [Website functionality](#website-functionality)
     * [General presentation](#general-presentation)
     * [The home page](#the-home-page-1)
@@ -53,6 +54,7 @@
         * [Admin panel control directly from the website](#admin-panel-control-directly-from-the-website)
     * [Time controlled content](#time-controlled-content)
     * [Full CRUD functionality](#full-crud-functionality)
+* [Resources and Tools](#resources-and-tools)
 * [Bugs](#bugs)
     * [Fixed Bugs](#fixed-bugs)
     * [Pending Bugs](#pending-bugs)
@@ -773,6 +775,16 @@ Then, it is needed to add the environment variables to Heroku. This is done by s
 
 During the development, remember to always set the DISABLE_COLLECTSTATIC variable to 1, so Heroku does not try to collect the static files.
 
+## Agile Project
+
+The project was developed using the Agile methodology, and the Kanban board was used to keep track of the user stories.
+
+### User stories
+
+All user stories can be found at https://github.com/users/Parbelaez/projects/1.
+
+The remaining stories in the To-Do bucket, are part of the backlog for future releases.
+
 ## Website functionality
 
 ### General presentation
@@ -918,6 +930,23 @@ It was included directly in the writing detail page, so the author can edit (upd
 ![Edit writing](./readmeimages/edit_panel.png)
 
 **NOTE:** The deletion message was already shown in the confirmation messages section.
+
+
+### Resources and used tools
+
+* [Bootstrap](https://getbootstrap.com/)
+* [vscode](https://code.visualstudio.com/)
+* [GitHub](https://github.com)
+* [Heroku](https://www.heroku.com/)
+* [Django](https://www.djangoproject.com/)
+* [Django Summernote](https://summernote.org/)
+* [Django Allauth](https://django-allauth.readthedocs.io/en/latest/installation.html)
+* [Django Crispy Forms](https://django-crispy-forms.readthedocs.io/en/latest/)
+* [Django Decouple](https://pypi.org/project/python-decouple/)
+* [Elephant SQL](https://www.elephantsql.com/) -Used to host the DB-
+* [Cloudinary](https://cloudinary.com/) -Used to host the images-
+* [OpenAI](https://openai.com/) -Used to create the stories-
+* [Tables Generator](https://www.tablesgenerator.com/markdown_tables#) -Used to create the tables in the readme file-
 
 
 ## Bugs

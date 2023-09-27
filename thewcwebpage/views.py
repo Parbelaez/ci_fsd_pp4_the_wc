@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from .models import Writing, Comment
 from .forms import CommentForm, WritingForm
 
+
 # From the generic class-based views we are importing the ListView
 # which is used to display a list of objects (DB tables or content)
 # in a specific order
@@ -21,12 +22,14 @@ class WritingListView(generic.ListView):
     # Paginate determines how many posts are shown per page.
     paginate_by = 6
 
+
 class MyWritingsListView(WritingListView):
     # This is a method to override the queryset
     def get_queryset(self):
         qs = super().get_queryset()
         qs = qs.filter(author=self.request.user)
         return qs
+
 
 class WritingDetailView(generic.View):
     model = Writing
@@ -92,6 +95,7 @@ class WritingDetailView(generic.View):
         }
         return render(request, 'writing_detail.html', context)
 
+
 class WritingLike(View):
     def post(self, request, slug):
         # Get the specific writing
@@ -107,6 +111,7 @@ class WritingLike(View):
         # Redirect the user to the same page
         return HttpResponseRedirect(reverse('writing_detail', args=[slug]))
 
+
 class NewWritingView(generic.CreateView):
     model = Writing
     template_name = 'new_writing.html'
@@ -119,6 +124,7 @@ class NewWritingView(generic.CreateView):
         self.object.save()
 
         return HttpResponseRedirect(self.get_success_url())
+
 
 class UpdateWritingView(generic.UpdateView):
     model = Writing
@@ -133,6 +139,7 @@ class UpdateWritingView(generic.UpdateView):
 
         return HttpResponseRedirect(self.get_success_url())
 
+
 class DeleteWritingView(generic.DeleteView):
     model = Writing
     template_name = 'delete_writing.html'
@@ -144,12 +151,14 @@ class DeleteWritingView(generic.DeleteView):
             raise Http404
         return writing
 
+
 class ApproveCommentView(generic.View):
     def get(self, request, pk):
         comment = get_object_or_404(Comment, pk=pk)
         comment.approved_comment = True
         comment.save()
         return HttpResponseRedirect(reverse('writing_detail', args=[comment.writing.slug]))
+
 
 class SelectCommentView(generic.View):
     def get(self, request, pk):
@@ -159,6 +168,7 @@ class SelectCommentView(generic.View):
         comment.writing.updated_on = datetime.datetime.now()
         comment.writing.save()
         return HttpResponseRedirect(reverse('writing_detail', args=[comment.writing.slug]))
+
 
 class AboutView(generic.TemplateView):
     template_name = 'about.html'

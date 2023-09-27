@@ -16,6 +16,7 @@ GENRES = (('Action and Adventure', 'Action and Adventure'),
     ('Fantasy', 'Fantasy'), ('Horror', 'Horror'), ('SciFi', 'SciFi'),
     ('Romance', 'Romance'), ('Poetry', 'Poetry'), ('Other', 'Other'))
 
+
 class Genre(models.Model):
     name = models.CharField(choices=GENRES, max_length=20, default='Other')
 
@@ -24,6 +25,7 @@ class Genre(models.Model):
 
     def get_absolute_url(self):
         return reverse("home")
+
 
 class Writing(models.Model):
     title = models.CharField(max_length=200, unique=True)
@@ -62,7 +64,7 @@ class Writing(models.Model):
     def can_comment(self):
         if self.updated_on > timezone.now() - datetime.timedelta(days=7):
             return True
-    
+
     @property
     def total_comments(self):
         return self.comments.count()
@@ -74,6 +76,7 @@ class Writing(models.Model):
             return self.content
         selected_comments = "\n".join(selected_comments)
         return f"{self.content}\n\n{selected_comments}"
+
 
 # The Comment model is used to store comments on posts.
 # But, this comments can turn into further writings for the already
