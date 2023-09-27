@@ -10,12 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
+from django.contrib.messages import constants as messages
 import dj_database_url
 import django_heroku
 from decouple import config
-from django.contrib.messages import constants as messages
 
 if os.path.isfile("env.py"):
     import env
@@ -51,19 +51,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'cloudinary_storage',
     'django.contrib.staticfiles',
-    'django_summernote',
+    'cloudinary',
     'crispy_forms',
     # Since version 2, the styling is a separate package.
     # https://django-crispy-forms.readthedocs.io/en/latest/install.html
     # Remember to add the template pack to the settings.py file.
     # and pip3 install crispy-bootstrap4
     'crispy_bootstrap4',
-    'thewcwebpage',
     # The position should be after the app making use of it.
     # unless, the custom templates will not work.
     'allauth',  # allauth added for thewcwebpage app
     'allauth.account',  # allauth added for thewcwebpage app
     'allauth.socialaccount',  # allauth added for thewcwebpage app
+    'django_summernote',
+    'thewcwebpage',
 ]
 
 # We need to tell Django the site number that we will apply this to.
@@ -104,7 +105,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # whitenoise for static files
+    # 'whitenoise.middleware.WhiteNoiseMiddleware', # whitenoise for static files
 ]
 
 ROOT_URLCONF = 'ci_fsd_pp4_the_wc.urls'
@@ -164,14 +165,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 MEDIA_URL = '/media/'
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
