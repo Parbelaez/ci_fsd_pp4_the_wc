@@ -12,8 +12,8 @@ urlpatterns = [
     path('', include('thewcwebpage.urls'), name='thewcwebpage_urls'),
     # allauth added for thewcwebpage app to manage user accounts
     path('accounts/', include('allauth.urls')),
-    # static and settings added for thewcwebpage app -summernote-
-    # If in DEBUG mode, we will serve the media files through Django
-    if settings.DEBUG:
-        static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ]
+# static and settings added for thewcwebpage app -summernote-
+# If in DEBUG mode, we will serve the media files through Django
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
