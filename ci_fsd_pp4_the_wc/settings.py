@@ -1,8 +1,6 @@
 from pathlib import Path
 import os
 import dj_database_url
-import django_heroku
-from decouple import config
 from django.contrib.messages import constants as messages
 
 if os.path.isfile("env.py"):
@@ -30,7 +28,11 @@ DEBUG = 'DEBUG' in os.environ
 
 # X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','thewcwebpage-83a6428384c3.herokuapp.com']
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '.herokuapp.com'
+]
 
 
 # Application definition
@@ -91,6 +93,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -98,7 +101,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'ci_fsd_pp4_the_wc.urls'
@@ -174,10 +176,10 @@ STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-django_heroku.settings(locals())
-
 # This will avoid the need for an SMTP server as e-mails will be printed
 # to the console. (This is useful for testing purposes.)
 # https://stackoverflow.com/questions/21563227/django-allauth-example-errno-61-connection-refused
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+print("DEBUG is", DEBUG)
